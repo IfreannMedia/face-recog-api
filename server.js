@@ -36,7 +36,7 @@ app.put('/image', (req, res) => {image.image(req, res, db)});
 
 app.post('/imageUrl', (req, res) => {image.useClarifaiForUrl(req, res, db)});  
 
-const port = 3001;
+const port = process.env.PORT || 3001;
 app.listen(port, () => {
     console.log(`app is running on port: ${port}`);
 });
