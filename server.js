@@ -16,22 +16,23 @@ const db = knex({
     connection: {
         host: process.env.DATABASE_URL,
         ssl: true
+    }
 });
 
 app.get('/', (req, res) => {
     res.send('got the root');
 });
 
-app.get('/profile/:id', (req, res) => {profile.profile(req, res, db)});
+app.get('/profile/:id', (req, res) => { profile.profile(req, res, db) });
 
 
-app.post('/signin', (req, res)=> {signIn.signIn(req, res, db)});
+app.post('/signin', (req, res) => { signIn.signIn(req, res, db) });
 
-app.post('/register', (req, res) => {register.handleRegister(req, res, db, bcrypt)});
+app.post('/register', (req, res) => { register.handleRegister(req, res, db, bcrypt) });
 
-app.put('/image', (req, res) => {image.image(req, res, db)});
+app.put('/image', (req, res) => { image.image(req, res, db) });
 
-app.post('/imageUrl', (req, res) => {image.useClarifaiForUrl(req, res, db)});  
+app.post('/imageUrl', (req, res) => { image.useClarifaiForUrl(req, res, db) });
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => {
