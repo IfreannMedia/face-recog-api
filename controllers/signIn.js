@@ -1,11 +1,16 @@
 const signIn = (req, res, db) => {
+    const { email, password} = req.body;
+    if(!email || !password) {
+        return res.status(400).json('incorrect form submission');
+    }
+
     db.select('email', 'hash').from('login')
-    .where('email', '=', req.body.email)
+    .where('email', '=', email)
     .then(users => {
         console.log(users);
-        if(users.length && compareHash(req.body.password, users[0].hash)) {   
+        if(users.length && compareHash(password, users[0].hash)) {   
             return db.select('*').from('users')
-            .where('email' , '=', req.body.email)
+            .where('email' , '=', email)
             .then(users => {
                 if(users.length){
                     res.json(users[0]);

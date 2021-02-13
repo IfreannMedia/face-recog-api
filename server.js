@@ -32,7 +32,9 @@ app.post('/signin', (req, res)=> {signIn.signIn(req, res, db)});
 
 app.post('/register', (req, res) => {register.handleRegister(req, res, db, bcrypt)});
 
-app.put('/image', (req, res) => {image.image(req, res, db)});  
+app.put('/image', (req, res) => {image.image(req, res, db)});
+
+app.post('/imageUrl', (req, res) => {image.useClarifaiForUrl(req, res, db)});  
 
 const port = 3001;
 app.listen(port, () => {
