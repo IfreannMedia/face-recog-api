@@ -5,7 +5,8 @@ const app = new Clarifai.App({
 });
 
 const useClarifaiForUrl = (req, res, db) => {
-    const url = req.body; 
+    console.log('using clarifai');
+    const {url} = req.body; 
     console.log('called:', url);
     app.models.predict(Clarifai.FACE_DETECT_MODEL, url).then((clarifaiResult) => {
         res.status(200).json(clarifaiResult);
