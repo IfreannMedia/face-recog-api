@@ -14,11 +14,8 @@ const knex = require('knex');
 const db = knex({
     client: 'pg',
     connection: {
-        host: 'postgresql-spherical-89425',
-        user: 'postgres',
-        password: 'admin',
-        database: 'face-recog'
-    }
+        host: process.env.DATABASE_URL,
+        ssl: true
 });
 
 app.get('/', (req, res) => {
