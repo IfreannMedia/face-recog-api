@@ -23,7 +23,7 @@ const handleRegister = (req, res, db, bcrypt) => {
                     })
             }).then(trx.commit).catch((err) => {
                 trx.rollback;
-                return Promise.reject(err)
+                // return Promise.reject(err);
             }).catch(err => {
                 console.error(new Error(err));
                 res.status(400).json('unable to join');
