@@ -28,7 +28,13 @@ app.get('/profile/:id', (req, res) => { profile.profile(req, res, db) });
 
 app.post('/signin', (req, res) => { signIn.signIn(req, res, db) });
 
-app.post('/register', (req, res) => { register.handleRegister(req, res, db, bcrypt) });
+app.post('/register', (req, res) => {
+    signIn.checkForUser(req, res, db).then(() => register.handleRegister(req, res, db, bcrypt))
+        .catch(err => {
+            console.error(err);
+            res.status(400).json('unable to join');
+        })
+});
 
 app.put('/image', (req, res) => { image.image(req, res, db) });
 
