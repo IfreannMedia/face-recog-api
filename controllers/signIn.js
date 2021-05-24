@@ -33,11 +33,13 @@ const signIn = (req, res, db) => {
 }
 
 const checkForUser = (req, res, db) => {
+    console.log("checking for user...");
     const { email, password } = req.body;
     if (!email || !password) {
+        console.log("no email / no password");
         return res.status(400).json('incorrect form submission');
     }
-
+    console.log("checking db... ", db);
     return db.select('email').from('login')
         .where('email', '=', email)
         .then(users => {

@@ -20,12 +20,6 @@ const db = knex({
 });
 
 app.get('/', (req, res) => {
-    console.log("OPENED SITE");
-    console.log(register);
-    console.log(signIn);
-    console.log(profile);
-    console.log(process.env.CLARIFAI_API_KEY);
-    console.log(bcrypt);
     res.send('got the root');
 });
 
@@ -35,6 +29,7 @@ app.get('/profile/:id', (req, res) => { profile.profile(req, res, db) });
 app.post('/signin', (req, res) => { signIn.signIn(req, res, db) });
 
 app.post('/register', (req, res) => {
+    console.log("recieved POST request to register, with data: ", JSON.stringify(req.body));
     signIn.checkForUser(req, res, db).then(() => register.handleRegister(req, res, db, bcrypt))
         .catch(err => {
             console.error(err);
