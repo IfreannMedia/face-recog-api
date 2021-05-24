@@ -9,7 +9,6 @@ const useClarifaiForUrl = (req, res, db) => {
     app.models.predict(Clarifai.FACE_DETECT_MODEL, url).then((clarifaiResult) => {
         res.status(200).json(clarifaiResult);
     }).catch(err => {
-        console.log('FAILED');
         console.error(new Error(err));
         res.status(400).json('clarifai failed to detect faces');
     });

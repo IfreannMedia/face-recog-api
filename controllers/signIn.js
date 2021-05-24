@@ -7,7 +7,6 @@ const signIn = (req, res, db) => {
     db.select('email', 'hash').from('login')
         .where('email', '=', email)
         .then(users => {
-            console.log(users);
             if (users.length && compareHash(password, users[0].hash)) {
                 return db.select('*').from('users')
                     .where('email', '=', email)
@@ -20,38 +19,34 @@ const signIn = (req, res, db) => {
                         }
                     })
                     .catch(err => {
-                        console.error(new Error(err));
+                        console.error(err);
                         return Promise.reject('unable to sign in, credentials invalid');
                     })
             } else {
                 return Promise.reject('Credentials do not match our records');
             }
         }).catch(err => {
-            console.error(new Error(err));
+            console.error(err);
             res.status(400).json('unable to sign in, credentials invalid');
         })
 }
 
 const checkForUser = (req, res, db) => {
-    console.log("checking for user...");
     const { email, password } = req.body;
     if (!email || !password) {
-        console.log("no email / no password");
         return res.status(400).json('incorrect form submission');
     }
-    console.log("checking db... ", db);
-    console.log(db.select("*").from('login'));
+
     return db.select('email').from('login')
         .where('email', '=', email)
         .then(users => {
-            console.log("performed seelct operation: ", users);
             if (users.length) {
                 return Promise.reject('user already exists');
             } else {
                 return Promise.resolve();
             }
         }).catch(err => {
-            console.error(new Error(err));
+            console.error(err);
             res.status(400).json('unable to check for user, something went wrong');
         })
 }
