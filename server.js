@@ -20,7 +20,7 @@ const db = knex({
 });
 
 app.get('/', (req, res) => {
-    res.json("I am test json");
+    res.json(register);
     res.send('got the root YOOOO');
 });
 
