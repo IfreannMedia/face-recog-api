@@ -1,9 +1,11 @@
 const handleRegister = (req, res, db, bcrypt) => {
     const { email, name, password } = req.body;
+    console.log("now registering user...");
     if(!email || !name || !password) {
         return res.status(400).json('incorrect form submission');
     }
     const hash = getEncryptedPassword(password);
+    console.log("got hash: ", hash);
     db.transaction(trx => {
         trx.insert({
             hash,
@@ -12,6 +14,7 @@ const handleRegister = (req, res, db, bcrypt) => {
             .into('login')
             .returning('email')
             .then((loginEmail) => {
+                console.log("finished insert opertation, returning...");
                 return trx('users')
                     .returning('*')
                     .insert({

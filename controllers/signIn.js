@@ -40,9 +40,11 @@ const checkForUser = (req, res, db) => {
         return res.status(400).json('incorrect form submission');
     }
     console.log("checking db... ", db);
+    console.log(db.select("*").from('login'));
     return db.select('email').from('login')
         .where('email', '=', email)
         .then(users => {
+            console.log("performed seelct operation: ", users);
             if (users.length) {
                 return Promise.reject('user already exists');
             } else {
