@@ -25,8 +25,9 @@ const handleRegister = (req, res, db, bcrypt) => {
                         res.json(response[0]);
                     })
             }).then(trx.commit).catch((err) => {
+                console.error("failed to insert: ", err);
                 trx.rollback;
-                // return Promise.reject(err);
+                return Promise.reject(err);
             }).catch(err => {
                 console.error(new Error(err));
                 res.status(400).json('unable to join');
