@@ -21,6 +21,11 @@ const db = knex({
 
 app.get('/', (req, res) => {
     console.log("OPENED SITE");
+    console.log(register);
+    console.log(signIn);
+    console.log(profile);
+    console.log(process.env.CLARIFAI_API_KEY);
+    console.log(bcrypt);
     res.send('got the root');
 });
 
