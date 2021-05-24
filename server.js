@@ -20,7 +20,8 @@ const db = knex({
 });
 
 app.get('/', (req, res) => {
-    res.send('got the root');
+    res.json("I am test json");
+    res.send('got the root YOOOO');
 });
 
 app.get('/profile/:id', (req, res) => { profile.profile(req, res, db) });
